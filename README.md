@@ -1,6 +1,7 @@
 # 大帝的CYPHER挑战 AstrBot 版
 
 这是从 `Amiya-Bot-plugins/src/game/wordle2` 迁移出来的 AstrBot 独立插件，用于在会话中进行明日方舟干员竞猜。
+整个项目由Codex完成，我没写过一行代码。
 
 ## 功能
 
