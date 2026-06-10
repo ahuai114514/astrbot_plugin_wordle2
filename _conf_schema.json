@@ -1,0 +1,31 @@
+{
+  "round_timeout": {
+    "type": "int",
+    "description": "每轮无人有效竞猜时的超时时间（秒）",
+    "default": 120,
+    "hint": "到时会公布答案并结束当前游戏。"
+  },
+  "max_guesses": {
+    "type": "int",
+    "description": "每轮最大竞猜次数",
+    "default": 10
+  },
+  "enable_image_board": {
+    "type": "bool",
+    "description": "启用 HTML 图片棋盘",
+    "default": true,
+    "hint": "插件会使用本地 Playwright/Chromium 渲染棋盘；渲染失败时自动回退到纯文本。"
+  },
+  "local_render_temp_dir": {
+    "type": "string",
+    "description": "本地棋盘图片输出目录",
+    "default": "/AstrBot/data/temp",
+    "hint": "AstrBot 和 NapCat 分容器部署时，NapCat 也需要以相同路径挂载这个目录。"
+  },
+  "operator_data_file": {
+    "type": "file",
+    "description": "自定义干员数据 JSON 文件",
+    "file_types": [".json"],
+    "hint": "留空时使用插件内置 data/operators.json。"
+  }
+}

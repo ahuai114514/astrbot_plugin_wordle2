@@ -1,0 +1,8 @@
+name: astrbot_plugin_wordle2
+display_name: 大帝的CYPHER挑战
+short_desc: 明日方舟干员竞猜小游戏
+desc: 将 Amiya-Bot 的 wordle2 干员竞猜玩法迁移为 AstrBot 独立插件，支持普通和硬核模式。
+version: v1.0.0
+author: Codex
+repo: ""
+astrbot_version: ">=4.16,<5"

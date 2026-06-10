@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @font-face {
+            font-family: Harmony;
+            src: url("./HarmonyOS_Sans_SC.ttf");
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1280px;
+            height: 720px;
+            margin: 0;
+            font-family: Harmony, "Microsoft YaHei", sans-serif;
+            color: #f4f1e7;
+            background: #171717;
+        }
+
+        .board {
+            width: 1280px;
+            height: 720px;
+            padding: 42px 54px;
+            background:
+                linear-gradient(90deg, rgba(10, 10, 10, .58), rgba(22, 22, 22, .30)),
+                url("img/advanced.a272bf.jpg") center / cover no-repeat;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand {
+            width: 330px;
+            height: 118px;
+            background: url("img/title_content.15ad7d.png") left center / contain no-repeat;
+            margin-bottom: 44px;
+        }
+
+        .hardcode {
+            position: absolute;
+            left: 48px;
+            bottom: 34px;
+            width: 190px;
+            height: 68px;
+            background: url("img/advance_entry.28df44.png") center / contain no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #bdbdbd;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .meta {
+            font-size: 22px;
+            color: #e5d59d;
+            margin-bottom: 20px;
+        }
+
+        .tags {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 16px;
+        }
+
+        .tag {
+            min-height: 84px;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, .30);
+            border: 1px solid rgba(230, 205, 130, .34);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .tag-title {
+            font-size: 17px;
+            color: #c9b56d;
+            margin-bottom: 8px;
+        }
+
+        .tag-value {
+            font-size: 23px;
+            line-height: 1.2;
+            color: #ffffff;
+            font-weight: 600;
+            min-height: 40px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-word;
+        }
+
+
+        .hidden {
+            color: #8f8f8f;
+        }
+
+        .tag-value.hidden {
+            color: #b8b8b8;
+        }
+
+        .right {
+            min-width: 0;
+            padding-top: 18px;
+        }
+
+        .history-title {
+            height: 38px;
+            display: grid;
+            grid-template-columns: 160px repeat(6, 1fr);
+            gap: 8px;
+            align-items: center;
+            font-size: 15px;
+            color: #c9b56d;
+        }
+
+        .history {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .row {
+            min-height: 48px;
+            display: grid;
+            grid-template-columns: 160px repeat(6, 1fr);
+            gap: 6px;
+        }
+
+        .cell {
+            min-width: 0;
+            background: rgba(0, 0, 0, .42);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6px;
+            font-size: 16px;
+        }
+
+        .name {
+            justify-content: flex-start;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .status {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .ok { color: #67d391; }
+        .ng { color: #e86d64; }
+        .up, .down { color: #efc75e; }
+        .unknown { color: #a3abb8; }
+
+        .empty {
+            height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b8b8b8;
+            font-size: 24px;
+            background: rgba(0, 0, 0, .24);
+            border: 1px dashed rgba(255, 255, 255, .22);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="board">
+    {% if data.hardcode %}
+    <div class="hardcode">HARDCODE</div>
+    {% endif %}
+    <div class="left">
+        <div class="brand"></div>
+        <div class="meta">{{ data.count }} / {{ data.max_count }} GUESSES</div>
+        <div class="tags">
+            {% for item in data.tags %}
+            <div class="tag">
+                <div class="tag-title{% if not item.show_title %} hidden{% endif %}">
+                    {% if item.show_title %}{{ item.title }}{% else %}???{% endif %}
+                </div>
+                <div class="tag-value{% if not item.show_value %} hidden{% endif %}">
+                    {% if item.show_value %}{{ item.value }}{% else %}???{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="right">
+        <div class="history-title">
+            <div>竞猜</div>
+            {% for item in data.tags %}
+            <div>{% if item.show_title %}{{ item.title }}{% else %}???{% endif %}</div>
+            {% endfor %}
+        </div>
+        {% if data.wrongs %}
+        <div class="history">
+            {% for row in data.wrongs %}
+            <div class="row">
+                <div class="cell name">{{ row.name }}</div>
+                {% for status in row.statuses %}
+                <div class="cell status {{ status }}">
+                    {% if status == "ok" %}OK{% elif status == "ng" %}NG{% elif status == "up" %}UP{% elif status == "down" %}DOWN{% elif status == "unknown" %}?{% else %}-{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty">等待第一位博士开麦</div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
