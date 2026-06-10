@@ -2,7 +2,7 @@
 
 这是从 [Amiya-Bot 插件开发](https://github.com/AmiyaBot/Amiya-Bot-plugins.git) 中的 `wordle2` game迁移出来的 AstrBot 独立插件，用于在会话中进行明日方舟干员竞猜。整个迁移/二创过程完全由Codex完成。
 
-若有侵权行为无意冒犯，请告知删除。
+若有侵权行为无意冒犯，请告知QQ:2596035649删除。
 
 ## 功能
 
