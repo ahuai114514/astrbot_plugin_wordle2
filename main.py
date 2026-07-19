@@ -39,7 +39,7 @@ class GameSession:
     timeout_task: asyncio.Task | None = None
 
 
-@register(PLUGIN_ID, "Codex", "大帝的CYPHER挑战 AstrBot 迁移版", "1.0.0")
+@register(PLUGIN_ID, "ahuai", "大帝的CYPHER挑战 AstrBot 迁移版", "1.0.0")
 class Wordle2Plugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig | None = None):
         super().__init__(context)
